@@ -12,7 +12,7 @@ Your program:
 #include<string.h>
 #define INT_MAX 2147483647
 
-//estrutura dos nodes da linked list
+//structure of the nodes in the linked list
 typedef struct Node{
 	char word[64]; //saving the word itself
 	int firstIndex; // first occurence of distinct word
@@ -40,9 +40,9 @@ unsigned int HashCode(const char* str){
 
 
 
-//funcao para adicionar um node a linked list
-struct Node* putinNode(int index,char* newWord){ //head- cabeca atual da linked list, newData- novo node(nova cabeca) a colocar na linked list, dataSize- sizeof(newData)
-	//so usamos esta funcao para introduzir novos nodes (palavras novas)	
+//function to add a node to a linked list
+struct Node* putinNode(int index,char* newWord){ //head- current head of the linked list, newData- new Node(head) to add to the linked list, dataSize- sizeof(newData)
+	//we only use this function to add new nodes (new words)	
 
 	//aloccate memory for the new node
 	struct Node* newNode = (struct Node*) malloc(sizeof(struct Node));
@@ -74,7 +74,7 @@ struct Node* putinNode(int index,char* newWord){ //head- cabeca atual da linked 
 }
 //
 
-//funcao para atualizar uma palavra ja existente
+//function to update existing word
 void updateNode(int index,struct Node* node){
 	node->counter++; //increment counter
 	int dist=index-(node->lastindex); //this is the distance between the last equal word and this one
@@ -87,15 +87,15 @@ void updateNode(int index,struct Node* node){
 //
 
 
-//funcao para confirmar se a informar ja existe nessa posicao
+//function to confirm if the information already exists in the position given
 struct Node* findWord(const char* newWord){ //newWord-the word we are trying to see if already exist, hashtable-hashtable of nodes, htSize- hashTable size
 	struct Node* DSebastiao;//starts as head of linked list
 	unsigned int i = HashCode(newWord); //hash code for the new word
 	DSebastiao=hashtable[i];
 	while(DSebastiao != NULL && strcmp(newWord,DSebastiao->word)!=0){
-		DSebastiao=DSebastiao->next; //mudamos para o next ate o encontrarmos	
+		DSebastiao=DSebastiao->next; //change to next until we find it	
 	}
-	return DSebastiao; //sera NULL se nao o encontrarmos
+	return DSebastiao; //will be null if not found
 }
 
 //
@@ -119,14 +119,7 @@ unsigned int insertWord(int index, char* newWord){
     return HashCode(newWord);
 }
 
- // Copiar codigo da hash function dos slides
- //Hash function:
-
  //
-
- //https://study.com/academy/lesson/separate-chaining-concept-advantages-disadvantages.html  -  Hash table and separate chaining
- //https://www.geeksforgeeks.org/hashing-set-2-separate-chaining/ - separate chaining
-
  //Separate chaining:
  /*
  .Is defined as a method by which linked lists of values are built in association with each location within the hash table when a collision occurs.
